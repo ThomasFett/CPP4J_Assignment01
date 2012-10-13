@@ -23,4 +23,8 @@ int main()
     printf("The result rn is: %i / %i \n", testResult.numerator, testResult.denominator);
 
     printf("simpleTest has completed!\n");
+
+    printf("RNC-Test has started!\n");
+
+    printf("RNC-Test has completed!\n");
 }
