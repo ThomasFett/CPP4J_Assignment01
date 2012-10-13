@@ -2,20 +2,20 @@
    Simple Unit Test for type RationalNumber
 */
 
+
 #include <stdio.h>
 #include <assert.h>
 
 #include "rationalnumber.h"
 
-
-int main()
+/*int main()
 {
 
     printf("Performing unit tests for RationalNumber...");
     fflush(stdout);
 
     /* Part 1 - RationalNumber data type */
-    RationalNumber  n1 = { 3, 4 },
+  /*  RationalNumber  n1 = { 3, 4 },
                     n2 = { 6, 4 },
                     n3 = { 3, 2 },
                     n4 = { -9, -6 },
@@ -45,5 +45,4 @@ int main()
     printf(" successful!\n");
 
     return 0;
-}
-
+}*/
