@@ -5,8 +5,10 @@ CONFIG -= qt
 SOURCES += \
     testRN.cpp \
     simpleTestRN.cpp \
-    rationalNumber.cpp
+    RationalNumberCollection.cpp \
+    RationalNumber.cpp
 
 HEADERS += \
-    rationalNumber.h
+    RationalNumberCollection.h \
+    RationalNumber.h
 
