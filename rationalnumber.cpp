@@ -36,6 +36,12 @@ bool rnIsValid(RationalNumber n)
 
 bool rnEqual(RationalNumber n1, RationalNumber n2)
 {
+    // checking if the given RationalNumbers are valid
+    if (!rnIsValid(n1) || !rnIsValid(n2) )
+    {
+        printf("At least one of the RationalNumbers is NOT valid! The result of this function might not be correct or valid!");
+    }
+
     n1 = rnNormalize(n1);
     n2 = rnNormalize(n2);
 
@@ -47,6 +53,12 @@ bool rnEqual(RationalNumber n1, RationalNumber n2)
 // all cases for positive and negative RationalNumbers are calculated seperately
 bool rnLessThan(RationalNumber n1, RationalNumber n2)
 {
+    // checking if the given RationalNumbers are valid
+    if (!rnIsValid(n1) || !rnIsValid(n2) )
+    {
+        printf("At least one of the RationalNumbers is NOT valid! The result of this function might not be correct or valid!");
+    }
+
     if (rnIsNegative(n1) && !rnIsNegative(n2)) return true;
 
     if (!rnIsNegative(n1) && rnIsNegative(n2)) return false;
@@ -76,6 +88,12 @@ RationalNumber rnAdd(RationalNumber n1, RationalNumber n2)
 {
     RationalNumber result;
 
+    // checking if the given RationalNumbers are valid
+    if (!rnIsValid(n1) || !rnIsValid(n2) )
+    {
+        printf("At least one of the RationalNumbers is NOT valid! The result of this function might not be correct or valid!");
+    }
+
     result.numerator = (n1.numerator * n2.denominator) + (n2.numerator *n1.denominator);
     result.denominator = (n1.denominator * n2.denominator);
 
@@ -88,6 +106,12 @@ RationalNumber rnSubtract(RationalNumber n1, RationalNumber n2)
 {
     RationalNumber result;
 
+    // checking if the given RationalNumbers are valid
+    if (!rnIsValid(n1) || !rnIsValid(n2) )
+    {
+        printf("At least one of the RationalNumbers is NOT valid! The result of this function might not be correct or valid!");
+    }
+
     result.numerator = (n1.numerator * n2.denominator) - (n2.numerator *n1.denominator);
     result.denominator = (n1.denominator * n2.denominator);
 
@@ -99,6 +123,12 @@ RationalNumber rnSubtract(RationalNumber n1, RationalNumber n2)
 RationalNumber rnMultiply(RationalNumber n1, RationalNumber n2)
 {
     RationalNumber result;
+
+    // checking if the given RationalNumbers are valid
+    if (!rnIsValid(n1) || !rnIsValid(n2) )
+    {
+        printf("At least one of the RationalNumbers is NOT valid! The result of this function might not be correct or valid!");
+    }
 
     result.numerator = n1.numerator * n2.numerator;
     result.denominator = n1.denominator * n2.denominator;
@@ -115,7 +145,9 @@ RationalNumber rnDivide(RationalNumber n1, RationalNumber n2)
     // checking if a division is possible
     if (!rnIsValid(n1) || !rnIsValid(n2) )
     {
-        printf("One of the RationalNumbers is NOT valid! The result of this function is not correct!");
+        printf("At least one of the RationalNumbers is NOT valid! The result of this function is not correct!");
+        result.numerator = 1;
+        result.denominator = 1;
         return result;
     }
 
