@@ -4,9 +4,9 @@ CONFIG -= qt
 
 SOURCES += \
     testRN.cpp \
-    simpleTestRN.cpp \
     RationalNumberCollection.cpp \
-    RationalNumber.cpp
+    RationalNumber.cpp \
+    testRNC.cpp
 
 HEADERS += \
     RationalNumberCollection.h \

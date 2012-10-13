@@ -1,7 +1,14 @@
-#include <stdio.h>;
-#include <rationalnumber.h>;
+/*
+   Simple Unit Test for type RationalNumberCollection
+*/
 
-/*int main()
+
+#include <stdio.h>
+#include <assert.h>
+
+#include "RationalNumberCollection.h";
+
+int main()
 {
     printf("simpleTest has started!\n");
 
@@ -16,6 +23,4 @@
     printf("The result rn is: %i / %i \n", testResult.numerator, testResult.denominator);
 
     printf("simpleTest has completed!\n");
-
-    return 0;
-}*/
+}
