@@ -57,6 +57,7 @@ bool rnLessThan(RationalNumber n1, RationalNumber n2)
     if (!rnIsValid(n1) || !rnIsValid(n2) )
     {
         printf("At least one of the RationalNumbers is NOT valid! The result of this function might not be correct or valid!");
+        return false;
     }
 
     if (rnIsNegative(n1) && !rnIsNegative(n2)) return true;

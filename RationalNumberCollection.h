@@ -3,10 +3,21 @@
 
 #include <RationalNumber.h>;
 
+/*This struct represents a single RationalNumber in the RationalNumberCollection. In addition to the
+  numerator and denominator, it contains an int for the count.*/
+struct RationalNumberCollectionElement{
+    RationalNumber rn;
+    int count;
+};
 /*A RationalNumberCollection can contain up to 1000 different RationalNumbers
   and contains the count of each kind of RationalNumber*/
 struct RationalNumberCollection {
-    int collection[1500];
+    RationalNumberCollectionElement collection[1000];
+    int totalUniqueCount;
+    int totalCount;
+    RationalNumber sum;
+    RationalNumber average;
+    RationalNumber median;
 };
 
 // inits the created RationalNumberCollection by filling it with zeros.
