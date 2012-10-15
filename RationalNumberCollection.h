@@ -13,6 +13,7 @@ struct RationalNumberCollectionElement{
   and contains the count of each kind of RationalNumber*/
 struct RationalNumberCollection {
     RationalNumberCollectionElement collection[1000];
+    int currentLength;
     int totalUniqueCount;
     int totalCount;
     RationalNumber sum;
@@ -20,12 +21,12 @@ struct RationalNumberCollection {
     RationalNumber median;
 };
 
-// inits the created RationalNumberCollection by filling it with zeros.
+// inits the created RationalNumberCollection by filling it with zeros. Returns true, when all RNC-values are set to 0.
 // CAUTION! Don't call this method, wenn the RNC is already in use!
-void rncInit(RationalNumberCollection* c);
+bool rncInit(RationalNumberCollection* c);
 
 // adds a given RationalNumber to the given RationalNumberCollection
-void rncAdd(RationalNumberCollection* c, RationalNumber n);
+bool rncAdd(RationalNumberCollection* c, RationalNumber n);
 
 // Returns the count of the given RationalNumber. If the RationalNumber is not in the RNC the return value is 0.
 int rncCount(RationalNumberCollection* c, RationalNumber n);
