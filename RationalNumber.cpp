@@ -9,10 +9,25 @@ int rnEuclid(int a, int b)
     return rnEuclid(b, a%b);
 }
 
+
+bool rnIsValid(RationalNumber n)
+{
+    if (n.denominator == 0) return false;
+
+    return true;
+}
+
 // Normalizes the given RationalNumber using the Euclidian Algorithm
 RationalNumber rnNormalize(RationalNumber n)
 {
-    int gcd = rnEuclid(n.numerator, n.denominator);
+    // checking if the given RationalNumbers are valid
+    if (!rnIsValid(n))
+    {
+        printf("At least one of the RationalNumbers is NOT valid! The result of this function might not be correct or valid!");
+    }
+
+    // abs() has to be used to avoid a negative gcd
+    int gcd = rnEuclid(abs(n.numerator), abs(n.denominator));
     n.numerator = n.numerator/gcd;
     n.denominator = n.denominator/gcd;
 
@@ -23,13 +38,6 @@ RationalNumber rnNormalize(RationalNumber n)
 bool rnIsNegative(RationalNumber n)
 {
     if ((n.numerator > 0 && n.denominator > 0) || (n.numerator < 0 && n.denominator < 0)) return false;
-
-    return true;
-}
-
-bool rnIsValid(RationalNumber n)
-{
-    if (n.denominator == 0) return false;
 
     return true;
 }

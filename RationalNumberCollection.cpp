@@ -64,10 +64,44 @@ void rncUpdateTotalCount(RationalNumberCollection *c)
     c->totalCount = result;
 }
 
+void rncUpdateSum(RationalNumberCollection *c)
+{
+    // resultSum is 1/1 at first (so that it is not invalid)
+    // this is subtracted before resultSum is returned
+    RationalNumber resultSum;
+    resultSum.numerator = 1;
+    resultSum.denominator = 1;
+
+    for (int i=0; i < c->totalUniqueCount; i++)
+    {
+        for (int j=0; j<c->collection[i].count; j++)
+        {
+            resultSum = rnAdd(resultSum, c->collection[i].rn);
+        }
+    }
+
+    // Subtracting 1/1 from resultSum
+    RationalNumber resultSumDiff;
+    resultSumDiff.numerator = 1;
+    resultSumDiff.denominator = 1;
+
+    resultSum = rnSubtract(resultSum, resultSumDiff);
+
+    c->sum = resultSum;
+
+    // In case of the collection is empty, the sum is 0/0
+    if (c->totalUniqueCount == 0)
+    {
+        c->sum.numerator = 0;
+        c->sum.denominator = 0;
+    }
+}
+
 // This method is called to update all informational elements of the collection after an element has been added or removed
 void rncUpdateCollection(RationalNumberCollection *c)
 {
     rncUpdateTotalCount(c);
+    rncUpdateSum(c);
 }
 
 int rncCount(RationalNumberCollection *c, RationalNumber n)
@@ -155,4 +189,9 @@ int rncTotalCount(RationalNumberCollection *c)
 int rncTotalUniqueCount(RationalNumberCollection *c)
 {
     return c->totalUniqueCount;
+}
+
+RationalNumber rncSum(RationalNumberCollection *c)
+{
+    return c->sum;
 }

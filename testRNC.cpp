@@ -45,6 +45,8 @@ int main()
     RationalNumber testRn5_4 = {5,4};
     RationalNumber testRnMin98827_82 = {-98827,82};
 
+    printf("RNC-Test Checkpoint 1!\n");
+
     rncAdd(&c, testRn1_2);
 
     assert(c.collection[0].rn.numerator == 1);
@@ -56,6 +58,12 @@ int main()
     assert(rncCount(&c, testRn5_4) == 0);
     assert(rncCount(&c, testRnMin98827_82) == 0);
 
+    RationalNumber collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == 1);
+    assert(collectionSum.denominator == 2);
+
+    printf("RNC-Test Checkpoint 2!\n");
+
     rncAdd(&c, testRn1_2);
 
     assert(c.collection[0].rn.numerator == 1);
@@ -66,6 +74,12 @@ int main()
     assert(rncCount(&c, testRn1_2) == 2);
     assert(rncCount(&c, testRn5_4) == 0);
     assert(rncCount(&c, testRnMin98827_82) == 0);
+
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == 1);
+    assert(collectionSum.denominator == 1);
+
+    printf("RNC-Test Checkpoint 3!\n");
 
     rncAdd(&c, testRn5_4);
 
@@ -84,6 +98,11 @@ int main()
     assert(rncCount(&c, testRn5_4) == 1);
     assert(rncCount(&c, testRnMin98827_82) == 0);
 
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == 9);
+    assert(collectionSum.denominator == 4);
+
+    printf("RNC-Test Checkpoint 4!\n");
 
     rncAdd(&c, testRn1_2);
     rncAdd(&c, testRn5_4);
@@ -109,6 +128,12 @@ int main()
 
     assert(c.totalUniqueCount == 3);
 
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == -98499);
+    assert(collectionSum.denominator == 82);
+
+    printf("RNC-Test Checkpoint 5!\n");
+
     rncRemove(&c, testRn5_4);
 
     assert(c.collection[0].rn.numerator == 1);
@@ -130,6 +155,12 @@ int main()
     assert(rncCount(&c, testRnMin98827_82) == 1);
 
     assert(c.totalUniqueCount == 3);
+
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == -197203);
+    assert(collectionSum.denominator == 164);
+
+    printf("RNC-Test Checkpoint 6!\n");
 
     rncRemove(&c, testRn5_4);
 
@@ -153,6 +184,12 @@ int main()
 
     assert(c.totalUniqueCount == 2);
 
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == -49352);
+    assert(collectionSum.denominator == 41);
+
+    printf("RNC-Test Checkpoint 7!\n");
+
     rncAdd(&c, testRn5_4);
     rncAdd(&c, testRn5_4);
 
@@ -175,6 +212,12 @@ int main()
     assert(rncCount(&c, testRnMin98827_82) == 1);
 
     assert(c.totalUniqueCount == 3);
+
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == -98499);
+    assert(collectionSum.denominator == 82);
+
+    printf("RNC-Test Checkpoint 8!\n");
 
     rncRemove(&c, testRn1_2);
     rncRemove(&c, testRn1_2);
@@ -203,6 +246,12 @@ int main()
 
     assert(c.totalUniqueCount == 0);
 
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == 0);
+    assert(collectionSum.denominator == 0);
+
+    printf("RNC-Test Checkpoint 9!\n");
+
     rncAdd(&c, testRn1_2);
     rncAdd(&c, testRn1_2);
     rncAdd(&c, testRn1_2);
@@ -229,6 +278,10 @@ int main()
     assert(rncCount(&c, testRnMin98827_82) == 1);
 
     assert(c.totalUniqueCount == 3);
+
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == -98499);
+    assert(collectionSum.denominator == 82);
 
     printf("RNC-Test has completed succesfully!\n");
 }
