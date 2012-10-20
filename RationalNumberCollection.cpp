@@ -97,11 +97,30 @@ void rncUpdateSum(RationalNumberCollection *c)
     }
 }
 
+void rncUpdateAverage(RationalNumberCollection *c)
+{
+    if (c->totalCount < 1)
+    {
+        c->average.numerator = 0;
+        c->average.denominator = 0;
+    }
+    else
+    {
+        RationalNumber totalCountRN;
+        totalCountRN.numerator = c->totalCount;
+        totalCountRN.denominator = 1;
+
+        RationalNumber result = rnDivide(c->sum, totalCountRN);
+        c->average = result;
+    }
+}
+
 // This method is called to update all informational elements of the collection after an element has been added or removed
 void rncUpdateCollection(RationalNumberCollection *c)
 {
     rncUpdateTotalCount(c);
     rncUpdateSum(c);
+    rncUpdateAverage(c);
 }
 
 int rncCount(RationalNumberCollection *c, RationalNumber n)
@@ -194,4 +213,9 @@ int rncTotalUniqueCount(RationalNumberCollection *c)
 RationalNumber rncSum(RationalNumberCollection *c)
 {
     return c->sum;
+}
+
+RationalNumber rncAverage(RationalNumberCollection *c)
+{
+    return c->average;
 }
