@@ -28,7 +28,7 @@ bool rncInit(RationalNumberCollection* c)
 
 // This method returns the position of the rational number in the collection, if the collection contains the given RationalNumber.
 // It returns -1 if it doesn't contain it.
-int rncContains(RationalNumberCollection *c, RationalNumber n)
+int rncGetPosition(RationalNumberCollection *c, RationalNumber n)
 {
     for (int i = 0; i<c->currentLength; i++)
     {
@@ -53,13 +53,32 @@ bool rncIsFull(RationalNumberCollection *c)
     return false;
 }
 
+void rncUpdateTotalCount(RationalNumberCollection *c)
+{
+    int result = 0;
+
+    for (int i=0 ; i < c->currentLength ; i++)
+    {
+        result += c->collection[i].count;
+    }
+
+    c->totalCount = result;
+}
+
+// This method is called to update all informational elements of the collection after an element has been added or removed
+void rncUpdateCollection(RationalNumberCollection *c)
+{
+    rncUpdateTotalCount(c);
+}
+
 bool rncAdd(RationalNumberCollection *c, RationalNumber n)
 {
-    int position = rncContains(c, n);
+    int position = rncGetPosition(c, n);
 
     if (position != -1)
     {
         c->collection[position].count++;
+        rncUpdateCollection(c);
         return true;
     }
     else if (rncIsFull(c))
@@ -75,5 +94,12 @@ bool rncAdd(RationalNumberCollection *c, RationalNumber n)
 
         // increasing the currentLength of the collection
         c->currentLength++;
+        rncUpdateCollection(c);
+        return true;
     }
+}
+
+int rncTotalCount(RationalNumberCollection *c)
+{
+    return c->totalCount;
 }

@@ -39,6 +39,7 @@ int main()
     assert(c.collection[0].rn.numerator == 0);
     assert(c.collection[0].rn.denominator == 0);
     assert(c.collection[0].count == 0);
+    assert(rncTotalCount(&c) == 0);
 
     RationalNumber testRn1_2 = {1,2};
     RationalNumber testRn5_4 = {5,4};
@@ -49,12 +50,14 @@ int main()
     assert(c.collection[0].rn.numerator == 1);
     assert(c.collection[0].rn.denominator == 2);
     assert(c.collection[0].count == 1);
+    assert(rncTotalCount(&c) == 1);
 
     rncAdd(&c, testRn1_2);
 
     assert(c.collection[0].rn.numerator == 1);
     assert(c.collection[0].rn.denominator == 2);
     assert(c.collection[0].count == 2);
+    assert(rncTotalCount(&c) == 2);
 
     rncAdd(&c, testRn5_4);
 
@@ -67,6 +70,8 @@ int main()
     assert(c.collection[2].rn.numerator == 0);
     assert(c.collection[2].rn.denominator == 0);
     assert(c.collection[2].count == 0);
+    assert(rncTotalCount(&c) == 3);
+
 
     rncAdd(&c, testRn1_2);
     rncAdd(&c, testRn5_4);
@@ -84,6 +89,7 @@ int main()
     assert(c.collection[3].rn.numerator == 0);
     assert(c.collection[3].rn.denominator == 0);
     assert(c.collection[3].count == 0);
+    assert(rncTotalCount(&c) == 6);
 
     assert(c.currentLength == 3);
 
