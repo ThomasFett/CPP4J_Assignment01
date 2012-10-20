@@ -71,6 +71,17 @@ void rncUpdateCollection(RationalNumberCollection *c)
     rncUpdateTotalCount(c);
 }
 
+int rncCount(RationalNumberCollection *c, RationalNumber n)
+{
+    int position;
+
+    position = rncGetPosition(c, n);
+
+    if (position != -1) return c->collection[position].count;
+
+    return 0;
+}
+
 bool rncAdd(RationalNumberCollection *c, RationalNumber n)
 {
     int position = rncGetPosition(c, n);

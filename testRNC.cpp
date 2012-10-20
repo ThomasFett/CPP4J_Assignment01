@@ -51,6 +51,9 @@ int main()
     assert(c.collection[0].rn.denominator == 2);
     assert(c.collection[0].count == 1);
     assert(rncTotalCount(&c) == 1);
+    assert(rncCount(&c, testRn1_2) == 1);
+    assert(rncCount(&c, testRn5_4) == 0);
+    assert(rncCount(&c, testRnMin98827_82) == 0);
 
     rncAdd(&c, testRn1_2);
 
@@ -58,6 +61,9 @@ int main()
     assert(c.collection[0].rn.denominator == 2);
     assert(c.collection[0].count == 2);
     assert(rncTotalCount(&c) == 2);
+    assert(rncCount(&c, testRn1_2) == 2);
+    assert(rncCount(&c, testRn5_4) == 0);
+    assert(rncCount(&c, testRnMin98827_82) == 0);
 
     rncAdd(&c, testRn5_4);
 
@@ -71,6 +77,9 @@ int main()
     assert(c.collection[2].rn.denominator == 0);
     assert(c.collection[2].count == 0);
     assert(rncTotalCount(&c) == 3);
+    assert(rncCount(&c, testRn1_2) == 2);
+    assert(rncCount(&c, testRn5_4) == 1);
+    assert(rncCount(&c, testRnMin98827_82) == 0);
 
 
     rncAdd(&c, testRn1_2);
@@ -90,6 +99,9 @@ int main()
     assert(c.collection[3].rn.denominator == 0);
     assert(c.collection[3].count == 0);
     assert(rncTotalCount(&c) == 6);
+    assert(rncCount(&c, testRn1_2) == 3);
+    assert(rncCount(&c, testRn5_4) == 2);
+    assert(rncCount(&c, testRnMin98827_82) == 1);
 
     assert(c.currentLength == 3);
 
