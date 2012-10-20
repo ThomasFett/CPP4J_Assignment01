@@ -12,7 +12,6 @@ bool rncInit(RationalNumberCollection* c)
     c->sum.numerator = 0;
     c->sum.denominator = 0;
 
-    c->currentLength = 0;
     c->totalCount = 0;
     c->totalUniqueCount = 0;
 
@@ -30,7 +29,7 @@ bool rncInit(RationalNumberCollection* c)
 // It returns -1 if it doesn't contain it.
 int rncGetPosition(RationalNumberCollection *c, RationalNumber n)
 {
-    for (int i = 0; i<c->currentLength; i++)
+    for (int i = 0; i<c->totalUniqueCount; i++)
     {
         if (c->collection[i].rn.numerator == n.numerator)
         {
@@ -46,7 +45,7 @@ int rncGetPosition(RationalNumberCollection *c, RationalNumber n)
 
 bool rncIsFull(RationalNumberCollection *c)
 {
-    if (c->currentLength >= 1000)
+    if (c->totalUniqueCount >= 1000)
     {
         return true;
     }
@@ -57,7 +56,7 @@ void rncUpdateTotalCount(RationalNumberCollection *c)
 {
     int result = 0;
 
-    for (int i=0 ; i < c->currentLength ; i++)
+    for (int i=0 ; i < c->totalUniqueCount ; i++)
     {
         result += c->collection[i].count;
     }
@@ -99,12 +98,12 @@ bool rncAdd(RationalNumberCollection *c, RationalNumber n)
     }
     else
     {
-        c->collection[c->currentLength].rn.numerator = n.numerator;
-        c->collection[c->currentLength].rn.denominator = n.denominator;
-        c->collection[c->currentLength].count = 1;
+        c->collection[c->totalUniqueCount].rn.numerator = n.numerator;
+        c->collection[c->totalUniqueCount].rn.denominator = n.denominator;
+        c->collection[c->totalUniqueCount].count = 1;
 
         // increasing the currentLength of the collection
-        c->currentLength++;
+        c->totalUniqueCount++;
         rncUpdateCollection(c);
         return true;
     }
@@ -133,7 +132,7 @@ bool rncRemove(RationalNumberCollection *c, RationalNumber n)
     // have to moved to avoid an empty index
     else
     {
-        for (int i=position; i<c->currentLength; i++)
+        for (int i=position; i<c->totalUniqueCount; i++)
         {
             RationalNumber tempRN = c->collection[i+1].rn;
             int tempCount = c->collection[i+1].count;
@@ -142,7 +141,7 @@ bool rncRemove(RationalNumberCollection *c, RationalNumber n)
             c->collection[i].count = tempCount;
         }
 
-        c->currentLength--;
+        c->totalUniqueCount--;
         rncUpdateCollection(c);
         return true;
     }
@@ -151,4 +150,9 @@ bool rncRemove(RationalNumberCollection *c, RationalNumber n)
 int rncTotalCount(RationalNumberCollection *c)
 {
     return c->totalCount;
+}
+
+int rncTotalUniqueCount(RationalNumberCollection *c)
+{
+    return c->totalUniqueCount;
 }

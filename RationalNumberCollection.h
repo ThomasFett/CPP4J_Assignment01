@@ -13,7 +13,7 @@ struct RationalNumberCollectionElement{
   and contains the count of each kind of RationalNumber*/
 struct RationalNumberCollection {
     RationalNumberCollectionElement collection[1000];
-    int currentLength;
+    // totalUniqueCount can also be used as currentLength
     int totalUniqueCount;
     int totalCount;
     RationalNumber sum;
