@@ -110,6 +110,44 @@ bool rncAdd(RationalNumberCollection *c, RationalNumber n)
     }
 }
 
+bool rncRemove(RationalNumberCollection *c, RationalNumber n)
+{
+    int position;
+    position = rncGetPosition(c, n);
+
+    // case one: the RationalNumber is not in the collection
+    if (position == -1)
+    {
+        return true;
+    }
+
+    // case two: the RationalNumber is in the collection more than one time
+    else if (c->collection[position].count > 1)
+    {
+        c->collection[position].count--;
+        rncUpdateCollection(c);
+        return false;
+    }
+
+    // case three: the RationalNumber is in the collection one time. The Following entries in the collection
+    // have to moved to avoid an empty index
+    else
+    {
+        for (int i=position; i<c->currentLength; i++)
+        {
+            RationalNumber tempRN = c->collection[i+1].rn;
+            int tempCount = c->collection[i+1].count;
+
+            c->collection[i].rn = tempRN;
+            c->collection[i].count = tempCount;
+        }
+
+        c->currentLength--;
+        rncUpdateCollection(c);
+        return true;
+    }
+}
+
 int rncTotalCount(RationalNumberCollection *c)
 {
     return c->totalCount;
