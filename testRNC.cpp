@@ -10,36 +10,25 @@
 
 int main()
 {
-    /*printf("simpleTest has started!\n");
+    printf("simpleTest has started!\n");
 
     RationalNumber test1 = {6,-4};
     RationalNumber test2 = {-7,-4};
 
     assert( rnLessThan( test1, test2) );
 
-    printf("Test1 is: %i / %i \n", test1.numerator, test1.denominator);
-    printf("Test2 is: %i / %i \n", test2.numerator, test2.denominator);
-
     RationalNumber testResult = rnMultiply(test1, test2);
 
-    printf("The result rn is: %i / %i\n", testResult.numerator, testResult.denominator);
-
-    printf("simpleTest has completed!\n");*/
+    printf("simpleTest has completed!\n");
 
     printf("RNC-Test has started!\n");
 
-    RationalNumberCollection c;
+    RationalNumberCollection *c = rncCreate(1000);
 
-    // before init-function:
-
-    // init-function:
-    rncInit(&c);
-
-    // after init-function:
-    assert(c.collection[0].rn.numerator == 0);
-    assert(c.collection[0].rn.denominator == 0);
-    assert(c.collection[0].count == 0);
-    assert(rncTotalCount(&c) == 0);
+    RationalNumber index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == 0);
+    assert(index0.denominator == 0);
+    assert(rncTotalCount(c) == 0);
 
     RationalNumber testRn1_2 = {1,2};
     RationalNumber testRn5_4 = {5,4};
@@ -49,368 +38,398 @@ int main()
 
     printf("RNC-Test Checkpoint 1!\n");
 
-    rncAdd(&c, testRn1_2);
+    rncAdd(c, testRn1_2);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 1);
-    assert(rncTotalCount(&c) == 1);
-    assert(rncTotalUniqueCount(&c) == 1);
-    assert(rncCount(&c, testRn1_2) == 1);
-    assert(rncCount(&c, testRn5_4) == 0);
-    assert(rncCount(&c, testRnMin98827_82) == 0);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == 1);
+    assert(index0.denominator == 2);
+    assert(rncTotalCount(c) == 1);
+    assert(rncTotalUniqueCount(c) == 1);
+    assert(rncCount(c, testRn1_2) == 1);
+    assert(rncCount(c, testRn5_4) == 0);
+    assert(rncCount(c, testRnMin98827_82) == 0);
 
-    RationalNumber collectionSum = rncSum(&c);
+    RationalNumber collectionSum = rncSum(c);
     assert(collectionSum.numerator == 1);
     assert(collectionSum.denominator == 2);
 
-    RationalNumber collectionAverage = rncAverage(&c);
+    RationalNumber collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == 1);
     assert(collectionAverage.denominator == 2);
 
-
-
-
-    RationalNumber collectionMedian = rncMedian(&c);
+    RationalNumber collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
-
-
     printf("RNC-Test Checkpoint 2!\n");
 
-    rncAdd(&c, testRn1_2);
+    rncAdd(c, testRn1_2);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 2);
-    assert(rncTotalCount(&c) == 2);
-    assert(rncTotalUniqueCount(&c) == 1);
-    assert(rncCount(&c, testRn1_2) == 2);
-    assert(rncCount(&c, testRn5_4) == 0);
-    assert(rncCount(&c, testRnMin98827_82) == 0);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == 1);
+    assert(index0.denominator == 2);
+    assert(rncTotalCount(c) == 2);
+    assert(rncTotalUniqueCount(c) == 1);
+    assert(rncCount(c, testRn1_2) == 2);
+    assert(rncCount(c, testRn5_4) == 0);
+    assert(rncCount(c, testRnMin98827_82) == 0);
 
-    collectionSum = rncSum(&c);
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == 1);
     assert(collectionSum.denominator == 1);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == 1);
     assert(collectionAverage.denominator == 2);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 3!\n");
 
-    rncAdd(&c, testRn5_4);
+    rncAdd(c, testRn5_4);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 2);
-    assert(c.collection[1].rn.numerator == 5);
-    assert(c.collection[1].rn.denominator == 4);
-    assert(c.collection[1].count == 1);
-    assert(c.collection[2].rn.numerator == 0);
-    assert(c.collection[2].rn.denominator == 0);
-    assert(c.collection[2].count == 0);
-    assert(rncTotalCount(&c) == 3);
-    assert(rncTotalUniqueCount(&c) == 2);
-    assert(rncCount(&c, testRn1_2) == 2);
-    assert(rncCount(&c, testRn5_4) == 1);
-    assert(rncCount(&c, testRnMin98827_82) == 0);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == 1);
+    assert(index0.denominator == 2);
 
-    collectionSum = rncSum(&c);
+    RationalNumber index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 5);
+    assert(index1.denominator == 4);
+
+    RationalNumber index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 0);
+    assert(index2.denominator == 0);
+
+    assert(rncTotalCount(c) == 3);
+    assert(rncTotalUniqueCount(c) == 2);
+    assert(rncCount(c, testRn1_2) == 2);
+    assert(rncCount(c, testRn5_4) == 1);
+    assert(rncCount(c, testRnMin98827_82) == 0);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == 9);
     assert(collectionSum.denominator == 4);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == 3);
     assert(collectionAverage.denominator == 4);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 4!\n");
 
-    rncAdd(&c, testRn1_2);
-    rncAdd(&c, testRn5_4);
-    rncAdd(&c, testRnMin98827_82);
+    rncAdd(c, testRn1_2);
+    rncAdd(c, testRn5_4);
+    rncAdd(c, testRnMin98827_82);
 
-    assert(c.collection[0].rn.numerator == -98827);
-    assert(c.collection[0].rn.denominator == 82);
-    assert(c.collection[0].count == 1);
-    assert(c.collection[1].rn.numerator == 1);
-    assert(c.collection[1].rn.denominator == 2);
-    assert(c.collection[1].count == 3);
-    assert(c.collection[2].rn.numerator == 5);
-    assert(c.collection[2].rn.denominator == 4);
-    assert(c.collection[2].count == 2);
-    assert(c.collection[3].rn.numerator == 0);
-    assert(c.collection[3].rn.denominator == 0);
-    assert(c.collection[3].count == 0);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == -98827);
+    assert(index0.denominator == 82);
 
-    assert(rncTotalCount(&c) == 6);
-    assert(rncTotalUniqueCount(&c) == 3);
-    assert(rncCount(&c, testRn1_2) == 3);
-    assert(rncCount(&c, testRn5_4) == 2);
-    assert(rncCount(&c, testRnMin98827_82) == 1);
+    index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 1);
+    assert(index1.denominator == 2);
 
-    assert(c.totalUniqueCount == 3);
+    index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 5);
+    assert(index2.denominator == 4);
 
-    collectionSum = rncSum(&c);
+    RationalNumber index3 = rncGetRNAtPosition(c,3);
+    assert(index3.numerator == 0);
+    assert(index3.denominator == 0);
+
+    assert(rncTotalCount(c) == 6);
+    assert(rncTotalUniqueCount(c) == 3);
+    assert(rncCount(c, testRn1_2) == 3);
+    assert(rncCount(c, testRn5_4) == 2);
+    assert(rncCount(c, testRnMin98827_82) == 1);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == -98499);
     assert(collectionSum.denominator == 82);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == -32833);
     assert(collectionAverage.denominator == 164);
 
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 5!\n");
 
-    rncRemove(&c, testRn5_4);
+    rncRemove(c, testRn5_4);
 
-    assert(c.collection[0].rn.numerator == -98827);
-    assert(c.collection[0].rn.denominator == 82);
-    assert(c.collection[0].count == 1);
-    assert(c.collection[1].rn.numerator == 1);
-    assert(c.collection[1].rn.denominator == 2);
-    assert(c.collection[1].count == 3);
-    assert(c.collection[2].rn.numerator == 5);
-    assert(c.collection[2].rn.denominator == 4);
-    assert(c.collection[2].count == 1);
-    assert(c.collection[3].rn.numerator == 0);
-    assert(c.collection[3].rn.denominator == 0);
-    assert(c.collection[3].count == 0);
-    assert(rncTotalCount(&c) == 5);
-    assert(rncTotalUniqueCount(&c) == 3);
-    assert(rncCount(&c, testRn1_2) == 3);
-    assert(rncCount(&c, testRn5_4) == 1);
-    assert(rncCount(&c, testRnMin98827_82) == 1);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == -98827);
+    assert(index0.denominator == 82);
 
-    assert(c.totalUniqueCount == 3);
+    index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 1);
+    assert(index1.denominator == 2);
 
-    collectionSum = rncSum(&c);
+    index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 5);
+    assert(index2.denominator == 4);
+
+    index3 = rncGetRNAtPosition(c,3);
+    assert(index3.numerator == 0);
+    assert(index3.denominator == 0);
+
+    assert(rncTotalCount(c) == 5);
+    assert(rncTotalUniqueCount(c) == 3);
+    assert(rncCount(c, testRn1_2) == 3);
+    assert(rncCount(c, testRn5_4) == 1);
+    assert(rncCount(c, testRnMin98827_82) == 1);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == -197203);
     assert(collectionSum.denominator == 164);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == -197203);
     assert(collectionAverage.denominator == 820);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 6!\n");
 
-    rncRemove(&c, testRn5_4);
+    rncRemove(c, testRn5_4);
 
-    assert(c.collection[0].rn.numerator == -98827);
-    assert(c.collection[0].rn.denominator == 82);
-    assert(c.collection[0].count == 1);
-    assert(c.collection[1].rn.numerator == 1);
-    assert(c.collection[1].rn.denominator == 2);
-    assert(c.collection[1].count == 3);
-    assert(c.collection[2].rn.numerator == 0);
-    assert(c.collection[2].rn.denominator == 0);
-    assert(c.collection[2].count == 0);
-    assert(c.collection[3].rn.numerator == 0);
-    assert(c.collection[3].rn.denominator == 0);
-    assert(c.collection[3].count == 0);
-    assert(rncTotalCount(&c) == 4);
-    assert(rncTotalUniqueCount(&c) == 2);
-    assert(rncCount(&c, testRn1_2) == 3);
-    assert(rncCount(&c, testRn5_4) == 0);
-    assert(rncCount(&c, testRnMin98827_82) == 1);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == -98827);
+    assert(index0.denominator == 82);
 
-    assert(c.totalUniqueCount == 2);
+    index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 1);
+    assert(index1.denominator == 2);
 
-    collectionSum = rncSum(&c);
+    index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 0);
+    assert(index2.denominator == 0);
+
+    index3 = rncGetRNAtPosition(c,3);
+    assert(index3.numerator == 0);
+    assert(index3.denominator == 0);
+
+    assert(rncTotalCount(c) == 4);
+    assert(rncTotalUniqueCount(c) == 2);
+    assert(rncCount(c, testRn1_2) == 3);
+    assert(rncCount(c, testRn5_4) == 0);
+    assert(rncCount(c, testRnMin98827_82) == 1);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == -49352);
     assert(collectionSum.denominator == 41);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == -12338);
     assert(collectionAverage.denominator == 41);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 7!\n");
 
-    rncAdd(&c, testRn5_4);
-    rncAdd(&c, testRn5_4);
+    rncAdd(c, testRn5_4);
+    rncAdd(c, testRn5_4);
 
-    assert(c.collection[0].rn.numerator == -98827);
-    assert(c.collection[0].rn.denominator == 82);
-    assert(c.collection[0].count == 1);
-    assert(c.collection[1].rn.numerator == 1);
-    assert(c.collection[1].rn.denominator == 2);
-    assert(c.collection[1].count == 3);
-    assert(c.collection[2].rn.numerator == 5);
-    assert(c.collection[2].rn.denominator == 4);
-    assert(c.collection[2].count == 2);
-    assert(c.collection[3].rn.numerator == 0);
-    assert(c.collection[3].rn.denominator == 0);
-    assert(c.collection[3].count == 0);
-    assert(rncTotalCount(&c) == 6);
-    assert(rncTotalUniqueCount(&c) == 3);
-    assert(rncCount(&c, testRn1_2) == 3);
-    assert(rncCount(&c, testRn5_4) == 2);
-    assert(rncCount(&c, testRnMin98827_82) == 1);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == -98827);
+    assert(index0.denominator == 82);
 
-    assert(c.totalUniqueCount == 3);
+    index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 1);
+    assert(index1.denominator == 2);
 
-    collectionSum = rncSum(&c);
+    index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 5);
+    assert(index2.denominator == 4);
+
+    index3 = rncGetRNAtPosition(c,3);
+    assert(index3.numerator == 0);
+    assert(index3.denominator == 0);
+
+    assert(rncTotalCount(c) == 6);
+    assert(rncTotalUniqueCount(c) == 3);
+    assert(rncCount(c, testRn1_2) == 3);
+    assert(rncCount(c, testRn5_4) == 2);
+    assert(rncCount(c, testRnMin98827_82) == 1);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == -98499);
     assert(collectionSum.denominator == 82);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == -32833);
     assert(collectionAverage.denominator == 164);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 8!\n");
 
-    rncRemove(&c, testRn1_2);
-    rncRemove(&c, testRn1_2);
-    rncRemove(&c, testRn1_2);
-    rncRemove(&c, testRn5_4);
-    rncRemove(&c, testRn5_4);
-    rncRemove(&c, testRnMin98827_82);
+    rncRemove(c, testRn1_2);
+    rncRemove(c, testRn1_2);
+    rncRemove(c, testRn1_2);
+    rncRemove(c, testRn5_4);
+    rncRemove(c, testRn5_4);
+    rncRemove(c, testRnMin98827_82);
 
-    assert(c.collection[0].rn.numerator == 0);
-    assert(c.collection[0].rn.denominator == 0);
-    assert(c.collection[0].count == 0);
-    assert(c.collection[1].rn.numerator == 0);
-    assert(c.collection[1].rn.denominator == 0);
-    assert(c.collection[1].count == 0);
-    assert(c.collection[2].rn.numerator == 0);
-    assert(c.collection[2].rn.denominator == 0);
-    assert(c.collection[2].count == 0);
-    assert(c.collection[3].rn.numerator == 0);
-    assert(c.collection[3].rn.denominator == 0);
-    assert(c.collection[3].count == 0);
-    assert(rncTotalCount(&c) == 0);
-    assert(rncTotalUniqueCount(&c) == 0);
-    assert(rncCount(&c, testRn1_2) == 0);
-    assert(rncCount(&c, testRn5_4) == 0);
-    assert(rncCount(&c, testRnMin98827_82) == 0);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == 0);
+    assert(index0.denominator == 0);
 
-    assert(c.totalUniqueCount == 0);
+    index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 0);
+    assert(index1.denominator == 0);
 
-    collectionSum = rncSum(&c);
+    index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 0);
+    assert(index2.denominator == 0);
+
+    index3 = rncGetRNAtPosition(c,3);
+    assert(index3.numerator == 0);
+    assert(index3.denominator == 0);
+
+    assert(rncTotalCount(c) == 0);
+    assert(rncTotalUniqueCount(c) == 0);
+    assert(rncCount(c, testRn1_2) == 0);
+    assert(rncCount(c, testRn5_4) == 0);
+    assert(rncCount(c, testRnMin98827_82) == 0);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == 0);
     assert(collectionSum.denominator == 0);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == 0);
     assert(collectionAverage.denominator == 0);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 0);
     assert(collectionMedian.denominator == 0);
 
 
     printf("RNC-Test Checkpoint 9!\n");
 
-    rncAdd(&c, testRn1_2);
-    rncAdd(&c, testRn1_2);
-    rncAdd(&c, testRn1_2);
-    rncAdd(&c, testRn5_4);
-    rncAdd(&c, testRn5_4);
-    rncAdd(&c, testRnMin98827_82);
+    rncAdd(c, testRn1_2);
+    rncAdd(c, testRn1_2);
+    rncAdd(c, testRn1_2);
+    rncAdd(c, testRn5_4);
+    rncAdd(c, testRn5_4);
+    rncAdd(c, testRnMin98827_82);
 
-    assert(c.collection[0].rn.numerator == -98827);
-    assert(c.collection[0].rn.denominator == 82);
-    assert(c.collection[0].count == 1);
-    assert(c.collection[1].rn.numerator == 1);
-    assert(c.collection[1].rn.denominator == 2);
-    assert(c.collection[1].count == 3);
-    assert(c.collection[2].rn.numerator == 5);
-    assert(c.collection[2].rn.denominator == 4);
-    assert(c.collection[2].count == 2);
-    assert(c.collection[3].rn.numerator == 0);
-    assert(c.collection[3].rn.denominator == 0);
-    assert(c.collection[3].count == 0);
-    assert(rncTotalCount(&c) == 6);
-    assert(rncTotalUniqueCount(&c) == 3);
-    assert(rncCount(&c, testRn1_2) == 3);
-    assert(rncCount(&c, testRn5_4) == 2);
-    assert(rncCount(&c, testRnMin98827_82) == 1);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == -98827);
+    assert(index0.denominator == 82);
 
-    assert(c.totalUniqueCount == 3);
+    index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 1);
+    assert(index1.denominator == 2);
 
-    collectionSum = rncSum(&c);
+    index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 5);
+    assert(index2.denominator == 4);
+
+    index3 = rncGetRNAtPosition(c,3);
+    assert(index3.numerator == 0);
+    assert(index3.denominator == 0);
+
+    assert(rncTotalCount(c) == 6);
+    assert(rncTotalUniqueCount(c) == 3);
+    assert(rncCount(c, testRn1_2) == 3);
+    assert(rncCount(c, testRn5_4) == 2);
+    assert(rncCount(c, testRnMin98827_82) == 1);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == -98499);
     assert(collectionSum.denominator == 82);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == -32833);
     assert(collectionAverage.denominator == 164);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 10!\n");
 
-    rncAdd(&c, testRn1_1);
+    rncAdd(c, testRn1_1);
 
-    assert(c.collection[0].rn.numerator == -98827);
-    assert(c.collection[0].rn.denominator == 82);
-    assert(c.collection[0].count == 1);
-    assert(c.collection[1].rn.numerator == 1);
-    assert(c.collection[1].rn.denominator == 2);
-    assert(c.collection[1].count == 3);
-    assert(c.collection[2].rn.numerator == 1);
-    assert(c.collection[2].rn.denominator == 1);
-    assert(c.collection[2].count == 1);
-    assert(c.collection[3].rn.numerator == 5);
-    assert(c.collection[3].rn.denominator == 4);
-    assert(c.collection[3].count == 2);
-    assert(c.collection[4].rn.numerator == 0);
-    assert(c.collection[4].rn.denominator == 0);
-    assert(c.collection[4].count == 0);
-    assert(rncTotalCount(&c) == 7);
-    assert(rncTotalUniqueCount(&c) == 4);
-    assert(rncCount(&c, testRn1_2) == 3);
-    assert(rncCount(&c, testRn5_4) == 2);
-    assert(rncCount(&c, testRnMin98827_82) == 1);
-    assert(rncCount(&c, testRn1_1) == 1);
+    index0 = rncGetRNAtPosition(c,0);
+    assert(index0.numerator == -98827);
+    assert(index0.denominator == 82);
 
+    index1 = rncGetRNAtPosition(c,1);
+    assert(index1.numerator == 1);
+    assert(index1.denominator == 2);
 
-    assert(c.totalUniqueCount == 4);
+    index2 = rncGetRNAtPosition(c,2);
+    assert(index2.numerator == 1);
+    assert(index2.denominator == 1);
 
-    collectionSum = rncSum(&c);
+    index3 = rncGetRNAtPosition(c,3);
+    assert(index3.numerator == 5);
+    assert(index3.denominator == 4);
+
+    RationalNumber index4 = rncGetRNAtPosition(c,4);
+    assert(index4.numerator == 0);
+    assert(index4.denominator == 0);
+
+    assert(rncTotalCount(c) == 7);
+    assert(rncTotalUniqueCount(c) == 4);
+    assert(rncCount(c, testRn1_2) == 3);
+    assert(rncCount(c, testRn5_4) == 2);
+    assert(rncCount(c, testRnMin98827_82) == 1);
+    assert(rncCount(c, testRn1_1) == 1);
+
+    collectionSum = rncSum(c);
     assert(collectionSum.numerator == -98417);
     assert(collectionSum.denominator == 82);
 
-    collectionAverage = rncAverage(&c);
+    collectionAverage = rncAverage(c);
     assert(collectionAverage.numerator == -98417);
     assert(collectionAverage.denominator == 574);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 1);
     assert(collectionMedian.denominator == 2);
 
-    rncAdd(&c, testRNMIN2_5);
+    rncAdd(c, testRNMIN2_5);
 
-    collectionMedian = rncMedian(&c);
+    collectionMedian = rncMedian(c);
     assert(collectionMedian.numerator == 2);
     assert(collectionMedian.denominator == -5);
+
+    printf("RNC-Test Checkpoint 11!\n");
+
+    rncRemove(c, testRnMin98827_82);
+    rncRemove(c, testRNMIN2_5);
+
+    collectionSum = rncSum(c);
+    assert(collectionSum.numerator == 5);
+    assert(collectionSum.denominator == 1);
+
+    collectionAverage = rncAverage(c);
+    assert(collectionAverage.numerator == 5);
+    assert(collectionAverage.denominator == 6);
+
+    collectionMedian = rncMedian(c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 1);
+
+    rncDelete(c);
 
     printf("RNC-Test has completed succesfully!\n");
 }

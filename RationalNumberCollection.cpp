@@ -2,7 +2,26 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-bool rncInit(RationalNumberCollection* c)
+/*This struct represents a single RationalNumber in the RationalNumberCollection. In addition to the
+  numerator and denominator, it contains an int for the count.*/
+struct RationalNumberCollectionElement{
+    RationalNumber rn;
+    int count;
+};
+/*A RationalNumberCollection can contain different RationalNumbers
+  and contains the count of each kind of RationalNumber*/
+struct RationalNumberCollection {
+    RationalNumberCollectionElement* collection;
+    // totalUniqueCount can also be used as currentLength
+    int totalUniqueCount;
+    int totalCount;
+    int capacity;
+    RationalNumber sum;
+    RationalNumber average;
+    RationalNumber median;
+};
+
+bool rncInit(RationalNumberCollection* c, int capacity)
 {
     c->average.numerator = 0;
     c->average.denominator = 0;
@@ -15,8 +34,9 @@ bool rncInit(RationalNumberCollection* c)
 
     c->totalCount = 0;
     c->totalUniqueCount = 0;
+    c->capacity = capacity;
 
-    for (int i = 0; i<1000; i++)
+    for (int i = 0; i<capacity; i++)
     {
         c->collection[i].rn.numerator = 0;
         c->collection[i].rn.denominator = 0;
@@ -25,6 +45,22 @@ bool rncInit(RationalNumberCollection* c)
 
     return true;
 }
+
+RationalNumberCollection *rncCreate(int capacity)
+{
+    RationalNumberCollection *c = (RationalNumberCollection*) malloc(sizeof(RationalNumberCollection));
+    c->collection = (RationalNumberCollectionElement*) malloc(capacity * sizeof(RationalNumberCollectionElement));
+    rncInit(c, capacity);
+
+    return c;
+}
+
+void rncDelete(RationalNumberCollection *c)
+{
+    free(c->collection);
+    free(c);
+}
+
 
 // This method returns the position of the rational number in the collection, if the collection contains the given RationalNumber.
 // It returns -1 if it doesn't contain it.
@@ -429,4 +465,9 @@ RationalNumber rncAverage(RationalNumberCollection *c)
 RationalNumber rncMedian(RationalNumberCollection *c)
 {
     return c->median;
+}
+
+RationalNumber rncGetRNAtPosition(RationalNumberCollection *c,int i)
+{
+    return c->collection[i].rn;
 }

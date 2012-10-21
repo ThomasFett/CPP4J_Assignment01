@@ -3,27 +3,15 @@
 
 #include <RationalNumber.h>;
 
-/*This struct represents a single RationalNumber in the RationalNumberCollection. In addition to the
-  numerator and denominator, it contains an int for the count.*/
-struct RationalNumberCollectionElement{
-    RationalNumber rn;
-    int count;
-};
-/*A RationalNumberCollection can contain up to 1000 different RationalNumbers
+/*A RationalNumberCollection can contain different RationalNumbers
   and contains the count of each kind of RationalNumber*/
-struct RationalNumberCollection {
-    RationalNumberCollectionElement collection[1000];
-    // totalUniqueCount can also be used as currentLength
-    int totalUniqueCount;
-    int totalCount;
-    RationalNumber sum;
-    RationalNumber average;
-    RationalNumber median;
-};
+struct RationalNumberCollection;
 
-// inits the created RationalNumberCollection by filling it with zeros. Returns true, when all RNC-values are set to 0.
-// CAUTION! Don't call this method, wenn the RNC is already in use!
-bool rncInit(RationalNumberCollection* c);
+// This function creates a RationalNumberCollectin with the given capacity and returns its pointer
+RationalNumberCollection *rncCreate(int capacity);
+
+// This function deletes the given RationalNumberCollection
+void rncDelete(RationalNumberCollection *c);
 
 // adds a given RationalNumber to the given RationalNumberCollection
 bool rncAdd(RationalNumberCollection* c, RationalNumber n);
@@ -50,5 +38,8 @@ RationalNumber rncAverage(RationalNumberCollection* c);
 
 // calculates the median value of ALL RationalNumbers in the collection
 RationalNumber rncMedian(RationalNumberCollection* c);
+
+// This method is only for testing purpose! Don't use it in your programs, because it is already deprecated ;-)
+RationalNumber rncGetRNAtPosition(RationalNumberCollection *c,int i);
 
 #endif // RATIONALNUMBERCOLLECTION_H
