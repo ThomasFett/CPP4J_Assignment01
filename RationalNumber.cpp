@@ -74,6 +74,11 @@ bool rnLessThan(RationalNumber n1, RationalNumber n2)
 
     if (!rnIsNegative(n1) && !rnIsNegative(n2))
     {
+        // the first if can catch some of the int-overflows!
+        if (n1.denominator == n2.denominator)
+        {
+            if (n1.numerator < n2.numerator) return true;
+        }
         n1.numerator = abs(n1.numerator) * abs(n2.denominator);
         n2.numerator = abs(n2.numerator) * abs(n1.denominator);
 
@@ -83,6 +88,11 @@ bool rnLessThan(RationalNumber n1, RationalNumber n2)
 
     if (rnIsNegative(n1) && rnIsNegative(n2))
     {
+        // the first if can catch some of the int-overflows!
+        if (n1.denominator == n2.denominator)
+        {
+            if (n1.numerator > n2.numerator) return true;
+        }
         n1.numerator = abs(n1.numerator) * abs(n2.denominator);
         n2.numerator = abs(n2.numerator) * abs(n1.denominator);
 

@@ -31,4 +31,7 @@ RationalNumber rnMultiply(RationalNumber n1, RationalNumber n2);
 // divides n1 by n2
 RationalNumber rnDivide(RationalNumber n1, RationalNumber n2);
 
+// returns if the given RationalNumber is negative
+bool rnIsNegative(RationalNumber n);
+
 #endif // RATIONALNUMBER_H

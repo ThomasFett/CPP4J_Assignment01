@@ -1,5 +1,6 @@
 #include "RationalNumberCollection.h"
 #include "stdio.h"
+#include "stdlib.h"
 
 bool rncInit(RationalNumberCollection* c)
 {
@@ -115,12 +116,182 @@ void rncUpdateAverage(RationalNumberCollection *c)
     }
 }
 
+// This method gets the current median value by calculating which rational number has the smallest difference to the average
+void rncUpdateMedian(RationalNumberCollection *c)
+{
+    printf("ENTER THE UPDATE MEDIAN FUNCTION\n");
+
+    if (c->totalCount < 1)
+    {
+        c->median.numerator = 0;
+        c->median.denominator = 0;
+    }
+    else
+    {
+        RationalNumber average =c->average;
+        RationalNumber averageStart = average;
+
+        printf("averageStart.numerator is: %i\n", averageStart.numerator);
+        printf("averageStart.denominator is: %i\n", averageStart.denominator);
+
+
+        RationalNumber resultRN;
+        int resultRNPosition = 0;
+        resultRN = c->collection[0].rn;
+
+        RationalNumber resultRNDiff;
+
+        printf("resultRN.numerator is: %i\n", resultRN.numerator);
+        printf("resultRN.denominator is: %i\n", resultRN.denominator);
+
+        if (rnIsNegative(averageStart) && rnIsNegative(resultRN))
+        {
+            printf("Both negative\n");
+
+            averageStart.numerator = abs(averageStart.numerator);
+            averageStart.denominator = abs(averageStart.denominator);
+            resultRN.numerator = abs(resultRN.numerator);
+            resultRN.denominator = abs(resultRN.denominator);
+            if (rnLessThan(averageStart,resultRN))
+            {
+                resultRNDiff = rnSubtract(resultRN, averageStart);
+            }
+            else
+            {
+                resultRNDiff = rnSubtract(averageStart, resultRN);
+            }
+
+        }
+        else if (rnIsNegative(averageStart))
+        {
+            printf("Avergae Start negative\n");
+
+            averageStart.numerator = abs(averageStart.numerator);
+            averageStart.denominator = abs(averageStart.denominator);
+
+            resultRNDiff = rnAdd(averageStart, resultRN);
+        }
+        else if (rnIsNegative(resultRN))
+        {
+            printf("resultRN negative\n");
+
+            resultRN.numerator = abs(resultRN.numerator);
+            resultRN.denominator = abs(resultRN.denominator);
+
+            resultRNDiff = rnAdd(averageStart, resultRN);
+        }
+        else
+        {
+            printf("Both positive\n");
+
+            if (rnLessThan(averageStart,resultRN))
+            {
+                resultRNDiff = rnSubtract(resultRN, averageStart);
+            }
+            else
+            {
+                resultRNDiff = rnSubtract(averageStart, resultRN);
+            }
+        }
+
+        // converting to positive values for easier comparisons
+        // although all the values should already be positive
+        resultRNDiff.numerator = abs(resultRNDiff.numerator);
+        resultRNDiff.denominator = abs(resultRNDiff.denominator);
+
+        RationalNumber averageLoop;
+        RationalNumber currentPositionRNDiff;
+
+        for (int i=1; i<c->totalUniqueCount; i++)
+        {
+            averageLoop = average;
+            printf("averageLoop.numerator is: %i\n", averageLoop.numerator);
+            printf("averageLoop.denominator is: %i\n", averageLoop.denominator);
+
+            RationalNumber currentPositionRN = c->collection[i].rn;
+
+            printf("currentPositionRN.numerator is: %i\n", currentPositionRN.numerator);
+            printf("currentPOsitionRN.denominator is: %i\n", currentPositionRN.denominator);
+
+
+            if (rnIsNegative(averageLoop) && rnIsNegative(currentPositionRN))
+            {
+                printf("Both negative\n");
+
+                averageLoop.numerator = abs(averageLoop.numerator);
+                averageLoop.denominator = abs(averageLoop.denominator);
+                currentPositionRN.numerator = abs(currentPositionRN.numerator);
+                currentPositionRN.denominator = abs(currentPositionRN.denominator);
+                if (rnLessThan(averageLoop,currentPositionRN))
+                {
+                    currentPositionRNDiff = rnSubtract(currentPositionRN, averageLoop);
+                }
+                else
+                {
+                    currentPositionRNDiff = rnSubtract(averageLoop, currentPositionRN);
+                }
+
+            }
+            else if (rnIsNegative(averageLoop))
+            {
+
+                printf("AverageLoop negative\n");
+
+                averageLoop.numerator = abs(averageLoop.numerator);
+                averageLoop.denominator = abs(averageLoop.denominator);
+
+                currentPositionRNDiff = rnAdd(averageLoop, currentPositionRN);
+            }
+            else if (rnIsNegative(currentPositionRN))
+            {
+                printf("currentPositionRN negative\n");
+
+                currentPositionRN.numerator = abs(currentPositionRN.numerator);
+                currentPositionRN.denominator = abs(currentPositionRN.denominator);
+
+                currentPositionRNDiff = rnAdd(averageStart, currentPositionRN);
+            }
+            else
+            {
+                printf("Both positive\n");
+
+                if (rnLessThan(averageLoop,currentPositionRN))
+                {
+                    currentPositionRNDiff = rnSubtract(currentPositionRN, averageLoop);
+                }
+                else
+                {
+                    currentPositionRNDiff = rnSubtract(averageLoop, currentPositionRN);
+                }
+            }
+
+            printf("currentPositionDiff.numerator is: %i\n",currentPositionRNDiff.numerator);
+            printf("currentPositionDiff.denoinator is: %i\n",currentPositionRNDiff.denominator);
+            printf("resultRNDiff.numerator is: %i\n",resultRNDiff.numerator);
+            printf("resultRNDiff.denominator is: %i\n",resultRNDiff.denominator);
+
+
+            if (rnLessThan(currentPositionRNDiff, resultRNDiff))
+            {
+                printf("currentPositionRNDiff is less than resultRNDiff --> return position changes!\n");
+
+                resultRNDiff = currentPositionRNDiff;
+                resultRNPosition = i;
+            }
+
+        }
+
+        c->median = c->collection[resultRNPosition].rn;
+    }
+}
+
 // This method is called to update all informational elements of the collection after an element has been added or removed
 void rncUpdateCollection(RationalNumberCollection *c)
 {
     rncUpdateTotalCount(c);
     rncUpdateSum(c);
     rncUpdateAverage(c);
+    rncUpdateMedian(c);
 }
 
 int rncCount(RationalNumberCollection *c, RationalNumber n)
@@ -179,10 +350,6 @@ bool rncAdd(RationalNumberCollection *c, RationalNumber n)
         }
 
         // moving all following RationalNumbers to keep the ascending order
-
-        RationalNumber tempRN;
-        int tempCount;
-
         for (int i=c->totalUniqueCount; i>insertPosition; i--)
         {
             c->collection[i].rn = c->collection[i-1].rn;
@@ -257,4 +424,9 @@ RationalNumber rncSum(RationalNumberCollection *c)
 RationalNumber rncAverage(RationalNumberCollection *c)
 {
     return c->average;
+}
+
+RationalNumber rncMedian(RationalNumberCollection *c)
+{
+    return c->median;
 }

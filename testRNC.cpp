@@ -45,6 +45,7 @@ int main()
     RationalNumber testRn5_4 = {5,4};
     RationalNumber testRnMin98827_82 = {-98827,82};
     RationalNumber testRn1_1 = {1,1};
+    RationalNumber testRNMIN2_5 ={2,-5};
 
     printf("RNC-Test Checkpoint 1!\n");
 
@@ -68,6 +69,14 @@ int main()
     assert(collectionAverage.denominator == 2);
 
 
+
+
+    RationalNumber collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
+
+
+
     printf("RNC-Test Checkpoint 2!\n");
 
     rncAdd(&c, testRn1_2);
@@ -88,6 +97,10 @@ int main()
     collectionAverage = rncAverage(&c);
     assert(collectionAverage.numerator == 1);
     assert(collectionAverage.denominator == 2);
+
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 3!\n");
 
@@ -115,6 +128,10 @@ int main()
     collectionAverage = rncAverage(&c);
     assert(collectionAverage.numerator == 3);
     assert(collectionAverage.denominator == 4);
+
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 4!\n");
 
@@ -151,6 +168,11 @@ int main()
     assert(collectionAverage.numerator == -32833);
     assert(collectionAverage.denominator == 164);
 
+
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
+
     printf("RNC-Test Checkpoint 5!\n");
 
     rncRemove(&c, testRn5_4);
@@ -182,6 +204,10 @@ int main()
     collectionAverage = rncAverage(&c);
     assert(collectionAverage.numerator == -197203);
     assert(collectionAverage.denominator == 820);
+
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 6!\n");
 
@@ -215,6 +241,10 @@ int main()
     assert(collectionAverage.numerator == -12338);
     assert(collectionAverage.denominator == 41);
 
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
+
     printf("RNC-Test Checkpoint 7!\n");
 
     rncAdd(&c, testRn5_4);
@@ -247,6 +277,10 @@ int main()
     collectionAverage = rncAverage(&c);
     assert(collectionAverage.numerator == -32833);
     assert(collectionAverage.denominator == 164);
+
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 8!\n");
 
@@ -285,6 +319,11 @@ int main()
     assert(collectionAverage.numerator == 0);
     assert(collectionAverage.denominator == 0);
 
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 0);
+    assert(collectionMedian.denominator == 0);
+
+
     printf("RNC-Test Checkpoint 9!\n");
 
     rncAdd(&c, testRn1_2);
@@ -321,6 +360,10 @@ int main()
     collectionAverage = rncAverage(&c);
     assert(collectionAverage.numerator == -32833);
     assert(collectionAverage.denominator == 164);
+
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
 
     printf("RNC-Test Checkpoint 10!\n");
 
@@ -359,6 +402,15 @@ int main()
     assert(collectionAverage.numerator == -98417);
     assert(collectionAverage.denominator == 574);
 
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 1);
+    assert(collectionMedian.denominator == 2);
+
+    rncAdd(&c, testRNMIN2_5);
+
+    collectionMedian = rncMedian(&c);
+    assert(collectionMedian.numerator == 2);
+    assert(collectionMedian.denominator == -5);
 
     printf("RNC-Test has completed succesfully!\n");
 }
