@@ -61,8 +61,28 @@ void rncDelete(RationalNumberCollection *c)
     free(c);
 }
 
+// This function is called, when the capacity of the collection is not sufficient. After this function the capacity is 50% larger, but at least 10.
+void rncIncreaseCapacity(RationalNumberCollection *c)
+{
+    int newCapicity;
+    newCapicity = c->capacity + (c->capacity / 2);
+    if (newCapicity < 10) newCapicity = 10;
 
-// This method returns the position of the rational number in the collection, if the collection contains the given RationalNumber.
+    RationalNumberCollectionElement *newCollection = (RationalNumberCollectionElement *)malloc(newCapicity*sizeof(RationalNumberCollectionElement));
+
+    // copying the old values into the newCollection
+    for (int i=0; i<c->capacity; i++)
+    {
+        newCollection[i] = c->collection[i];
+    }
+
+    // free the old collection and set the collection pointer to the new one.
+    free(c->collection);
+    c->collection = newCollection;
+    c->capacity = newCapicity;
+}
+
+// This function returns the position of the rational number in the collection, if the collection contains the given RationalNumber.
 // It returns -1 if it doesn't contain it.
 int rncGetPosition(RationalNumberCollection *c, RationalNumber n)
 {
@@ -82,7 +102,7 @@ int rncGetPosition(RationalNumberCollection *c, RationalNumber n)
 
 bool rncIsFull(RationalNumberCollection *c)
 {
-    if (c->totalUniqueCount >= 1000)
+    if (c->totalUniqueCount >= c->capacity)
     {
         return true;
     }
@@ -351,10 +371,12 @@ bool rncAdd(RationalNumberCollection *c, RationalNumber n)
         rncUpdateCollection(c);
         return true;
     }
+    // if the capacity is insufficient rncIncreaseCapacity is called and rncAdd is called again.
     else if (rncIsFull(c))
     {
-        printf("The RationalNumberCollection is already full! It can only contain up to 1000 different RationalNumbers!");
-        return false;
+        printf("THE COLLECTION IS FULL! rncIncreaseCapacity is called\n");
+        rncIncreaseCapacity(c);
+        return rncAdd(c, n);
     }
 
     // When a new RationalNumber is added to an empty collection, the order is ignored.
