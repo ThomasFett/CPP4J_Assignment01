@@ -2,13 +2,12 @@
 #include <stdio.h>;
 #include <stdlib.h>;
 
-// The modern Euclidian Algorithm
+// The modern Euclidian Algorithm. This function's code was adapted from the information which www.wikipedia.org provides.
 int rnEuclid(int a, int b)
 {
     if (b==0) return a;
     return rnEuclid(b, a%b);
 }
-
 
 bool rnIsValid(RationalNumber n)
 {

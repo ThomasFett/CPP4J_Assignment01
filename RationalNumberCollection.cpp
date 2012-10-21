@@ -8,6 +8,7 @@ struct RationalNumberCollectionElement{
     RationalNumber rn;
     int count;
 };
+
 /*A RationalNumberCollection can contain different RationalNumbers
   and contains the count of each kind of RationalNumber*/
 struct RationalNumberCollection {
@@ -61,7 +62,7 @@ void rncDelete(RationalNumberCollection *c)
     free(c);
 }
 
-// This function is called, when the capacity of the collection is not sufficient. After this function the capacity is 50% larger, but at least 10.
+// This function is called, when the capacity of the collection is not sufficient. After this function the capacity is 50% larger, and at least 10.
 void rncIncreaseCapacity(RationalNumberCollection *c)
 {
     int newCapicity;
@@ -82,10 +83,10 @@ void rncIncreaseCapacity(RationalNumberCollection *c)
     c->capacity = newCapicity;
 }
 
-// This function returns the position of the rational number in the collection, if the collection contains the given RationalNumber.
+// This function returns the position of the given RationalNumber in the collection, if the collection contains the given RationalNumber.
 // It returns -1 if it doesn't contain it.
 int rncGetPosition(RationalNumberCollection *c, RationalNumber n)
-{
+{    
     for (int i = 0; i<c->totalUniqueCount; i++)
     {
         if (c->collection[i].rn.numerator == n.numerator)
@@ -100,6 +101,7 @@ int rncGetPosition(RationalNumberCollection *c, RationalNumber n)
     return -1;
 }
 
+// this function returns true, if the capacity is fully stretched
 bool rncIsFull(RationalNumberCollection *c)
 {
     if (c->totalUniqueCount >= c->capacity)
@@ -121,6 +123,7 @@ void rncUpdateTotalCount(RationalNumberCollection *c)
     c->totalCount = result;
 }
 
+// This function calculates the sum of the collection by adding all of the RationalNumbers
 void rncUpdateSum(RationalNumberCollection *c)
 {
     // resultSum is 1/1 at first (so that it is not invalid)
@@ -154,6 +157,7 @@ void rncUpdateSum(RationalNumberCollection *c)
     }
 }
 
+// This function calculates the average value of the collection by dividing the sum by the number of RationalNumbers
 void rncUpdateAverage(RationalNumberCollection *c)
 {
     if (c->totalCount < 1)
@@ -172,7 +176,7 @@ void rncUpdateAverage(RationalNumberCollection *c)
     }
 }
 
-// This method gets the current median value by calculating which rational number has the smallest difference to the average
+// This function gets the current median value by calculating which rational number has the smallest difference to the average
 void rncUpdateMedian(RationalNumberCollection *c)
 {
     if (c->totalCount < 1)
@@ -359,7 +363,7 @@ bool rncRemove(RationalNumberCollection *c, RationalNumber n)
     }
 
     // case three: the RationalNumber is in the collection one time. The Following entries in the collection
-    // have to moved to avoid an empty index
+    // have to be moved to avoid an empty index
     else
     {
         for (int i=position; i<c->totalUniqueCount; i++)

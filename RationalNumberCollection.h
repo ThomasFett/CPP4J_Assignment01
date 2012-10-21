@@ -7,7 +7,7 @@
   and contains the count of each kind of RationalNumber*/
 struct RationalNumberCollection;
 
-// This function creates a RationalNumberCollectin with the given capacity and returns its pointer
+// This function creates a RationalNumberCollectin with the given start capacity and returns its pointer
 RationalNumberCollection *rncCreate(int capacity);
 
 // This function deletes the given RationalNumberCollection
