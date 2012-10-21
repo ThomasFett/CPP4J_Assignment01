@@ -23,7 +23,7 @@ int main()
 
     printf("RNC-Test has started!\n");
 
-    RationalNumberCollection *c = rncCreate(1);
+    RationalNumberCollection *c = rncCreate(3);
 
     RationalNumber index0 = rncGetRNAtPosition(c,0);
     assert(index0.numerator == 0);
