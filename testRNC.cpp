@@ -44,6 +44,7 @@ int main()
     RationalNumber testRn1_2 = {1,2};
     RationalNumber testRn5_4 = {5,4};
     RationalNumber testRnMin98827_82 = {-98827,82};
+    RationalNumber testRn1_1 = {1,1};
 
     printf("RNC-Test Checkpoint 1!\n");
 
@@ -121,18 +122,19 @@ int main()
     rncAdd(&c, testRn5_4);
     rncAdd(&c, testRnMin98827_82);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 3);
-    assert(c.collection[1].rn.numerator == 5);
-    assert(c.collection[1].rn.denominator == 4);
-    assert(c.collection[1].count == 2);
-    assert(c.collection[2].rn.numerator == -98827);
-    assert(c.collection[2].rn.denominator == 82);
-    assert(c.collection[2].count == 1);
+    assert(c.collection[0].rn.numerator == -98827);
+    assert(c.collection[0].rn.denominator == 82);
+    assert(c.collection[0].count == 1);
+    assert(c.collection[1].rn.numerator == 1);
+    assert(c.collection[1].rn.denominator == 2);
+    assert(c.collection[1].count == 3);
+    assert(c.collection[2].rn.numerator == 5);
+    assert(c.collection[2].rn.denominator == 4);
+    assert(c.collection[2].count == 2);
     assert(c.collection[3].rn.numerator == 0);
     assert(c.collection[3].rn.denominator == 0);
     assert(c.collection[3].count == 0);
+
     assert(rncTotalCount(&c) == 6);
     assert(rncTotalUniqueCount(&c) == 3);
     assert(rncCount(&c, testRn1_2) == 3);
@@ -153,14 +155,14 @@ int main()
 
     rncRemove(&c, testRn5_4);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 3);
-    assert(c.collection[1].rn.numerator == 5);
-    assert(c.collection[1].rn.denominator == 4);
-    assert(c.collection[1].count == 1);
-    assert(c.collection[2].rn.numerator == -98827);
-    assert(c.collection[2].rn.denominator == 82);
+    assert(c.collection[0].rn.numerator == -98827);
+    assert(c.collection[0].rn.denominator == 82);
+    assert(c.collection[0].count == 1);
+    assert(c.collection[1].rn.numerator == 1);
+    assert(c.collection[1].rn.denominator == 2);
+    assert(c.collection[1].count == 3);
+    assert(c.collection[2].rn.numerator == 5);
+    assert(c.collection[2].rn.denominator == 4);
     assert(c.collection[2].count == 1);
     assert(c.collection[3].rn.numerator == 0);
     assert(c.collection[3].rn.denominator == 0);
@@ -185,12 +187,12 @@ int main()
 
     rncRemove(&c, testRn5_4);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 3);
-    assert(c.collection[1].rn.numerator == -98827);
-    assert(c.collection[1].rn.denominator == 82);
-    assert(c.collection[1].count == 1);
+    assert(c.collection[0].rn.numerator == -98827);
+    assert(c.collection[0].rn.denominator == 82);
+    assert(c.collection[0].count == 1);
+    assert(c.collection[1].rn.numerator == 1);
+    assert(c.collection[1].rn.denominator == 2);
+    assert(c.collection[1].count == 3);
     assert(c.collection[2].rn.numerator == 0);
     assert(c.collection[2].rn.denominator == 0);
     assert(c.collection[2].count == 0);
@@ -218,12 +220,12 @@ int main()
     rncAdd(&c, testRn5_4);
     rncAdd(&c, testRn5_4);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 3);
-    assert(c.collection[1].rn.numerator == -98827);
-    assert(c.collection[1].rn.denominator == 82);
-    assert(c.collection[1].count == 1);
+    assert(c.collection[0].rn.numerator == -98827);
+    assert(c.collection[0].rn.denominator == 82);
+    assert(c.collection[0].count == 1);
+    assert(c.collection[1].rn.numerator == 1);
+    assert(c.collection[1].rn.denominator == 2);
+    assert(c.collection[1].count == 3);
     assert(c.collection[2].rn.numerator == 5);
     assert(c.collection[2].rn.denominator == 4);
     assert(c.collection[2].count == 2);
@@ -292,15 +294,15 @@ int main()
     rncAdd(&c, testRn5_4);
     rncAdd(&c, testRnMin98827_82);
 
-    assert(c.collection[0].rn.numerator == 1);
-    assert(c.collection[0].rn.denominator == 2);
-    assert(c.collection[0].count == 3);
-    assert(c.collection[1].rn.numerator == 5);
-    assert(c.collection[1].rn.denominator == 4);
-    assert(c.collection[1].count == 2);
-    assert(c.collection[2].rn.numerator == -98827);
-    assert(c.collection[2].rn.denominator == 82);
-    assert(c.collection[2].count == 1);
+    assert(c.collection[0].rn.numerator == -98827);
+    assert(c.collection[0].rn.denominator == 82);
+    assert(c.collection[0].count == 1);
+    assert(c.collection[1].rn.numerator == 1);
+    assert(c.collection[1].rn.denominator == 2);
+    assert(c.collection[1].count == 3);
+    assert(c.collection[2].rn.numerator == 5);
+    assert(c.collection[2].rn.denominator == 4);
+    assert(c.collection[2].count == 2);
     assert(c.collection[3].rn.numerator == 0);
     assert(c.collection[3].rn.denominator == 0);
     assert(c.collection[3].count == 0);
@@ -319,6 +321,44 @@ int main()
     collectionAverage = rncAverage(&c);
     assert(collectionAverage.numerator == -32833);
     assert(collectionAverage.denominator == 164);
+
+    printf("RNC-Test Checkpoint 10!\n");
+
+    rncAdd(&c, testRn1_1);
+
+    assert(c.collection[0].rn.numerator == -98827);
+    assert(c.collection[0].rn.denominator == 82);
+    assert(c.collection[0].count == 1);
+    assert(c.collection[1].rn.numerator == 1);
+    assert(c.collection[1].rn.denominator == 2);
+    assert(c.collection[1].count == 3);
+    assert(c.collection[2].rn.numerator == 1);
+    assert(c.collection[2].rn.denominator == 1);
+    assert(c.collection[2].count == 1);
+    assert(c.collection[3].rn.numerator == 5);
+    assert(c.collection[3].rn.denominator == 4);
+    assert(c.collection[3].count == 2);
+    assert(c.collection[4].rn.numerator == 0);
+    assert(c.collection[4].rn.denominator == 0);
+    assert(c.collection[4].count == 0);
+    assert(rncTotalCount(&c) == 7);
+    assert(rncTotalUniqueCount(&c) == 4);
+    assert(rncCount(&c, testRn1_2) == 3);
+    assert(rncCount(&c, testRn5_4) == 2);
+    assert(rncCount(&c, testRnMin98827_82) == 1);
+    assert(rncCount(&c, testRn1_1) == 1);
+
+
+    assert(c.totalUniqueCount == 4);
+
+    collectionSum = rncSum(&c);
+    assert(collectionSum.numerator == -98417);
+    assert(collectionSum.denominator == 82);
+
+    collectionAverage = rncAverage(&c);
+    assert(collectionAverage.numerator == -98417);
+    assert(collectionAverage.denominator == 574);
+
 
     printf("RNC-Test has completed succesfully!\n");
 }

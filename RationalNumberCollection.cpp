@@ -149,11 +149,50 @@ bool rncAdd(RationalNumberCollection *c, RationalNumber n)
         printf("The RationalNumberCollection is already full! It can only contain up to 1000 different RationalNumbers!");
         return false;
     }
-    else
+
+    // When a new RationalNumber is added to an empty collection, the order is ignored.
+    else if (c->totalUniqueCount == 0)
     {
         c->collection[c->totalUniqueCount].rn.numerator = n.numerator;
         c->collection[c->totalUniqueCount].rn.denominator = n.denominator;
         c->collection[c->totalUniqueCount].count = 1;
+
+        // increasing the current length of the collection (via totalUniqueCount)
+        c->totalUniqueCount++;
+        rncUpdateCollection(c);
+        return true;
+    }
+    // When a new RationalNumber is added to a filled collection, it checks for the right position (the collection is ordered in ascending values)
+    else
+    {
+        // this int represents the position in which the new value is saved for providing the ascending order.
+        // if the rational number is larger than all of the other entries, it gets to the last position.
+        int insertPosition = c->totalUniqueCount;
+
+        for (int i=0; i<c->totalUniqueCount; i++)
+        {
+            if (rnLessThan(n, c->collection[i].rn))
+            {
+                insertPosition = i;
+                break;
+            }
+        }
+
+        // moving all following RationalNumbers to keep the ascending order
+
+        RationalNumber tempRN;
+        int tempCount;
+
+        for (int i=c->totalUniqueCount; i>insertPosition; i--)
+        {
+            c->collection[i].rn = c->collection[i-1].rn;
+            c->collection[i].count = c->collection[i-1].count;
+        }
+
+        // addind the new RationalNumber in the correct position
+        c->collection[insertPosition].rn.numerator = n.numerator;
+        c->collection[insertPosition].rn.denominator = n.denominator;
+        c->collection[insertPosition].count = 1;
 
         // increasing the currentLength of the collection
         c->totalUniqueCount++;
